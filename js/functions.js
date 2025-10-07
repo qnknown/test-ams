@@ -5,14 +5,6 @@ function httpGet(theUrl){
     return xmlHttp.responseText;
 }
 
-// Decode HTML entities returned from API (e.g., &lt;b&gt; -> <b>)
-function decodeHtmlEntities(text){
-    if(!text) return "";
-    const textarea = document.createElement('textarea');
-    textarea.innerHTML = text;
-    return textarea.value;
-}
-
 function spikers_draw(list_to_draw){
     let serial_number=0;
     spikers_list.innerHTML = "";
@@ -23,16 +15,11 @@ function spikers_draw(list_to_draw){
         let spiker_end = spiker_item[1]||"";
         let spiker_name = spiker_item[2]||"";
         let spiker_image = spiker_item[3]||"";
-        let spiker_subject = decodeHtmlEntities(spiker_item[4] || "");
-        // If subject does not include HTML tags, convert newlines to <br>
-        if(spiker_subject && !/[<>]/.test(spiker_subject)){
-            spiker_subject = spiker_subject.replace(/\n/g, '<br>');
-        }
+        let spiker_subject = spiker_item[4] || "";
+        spiker_subject = (spiker_subject.length>0)?spiker_subject.replace(/$/gm,'<br>'):spiker_subject;
 
-        let spiker_details = decodeHtmlEntities(spiker_item[5] || "");
-        if(spiker_details && !/[<>]/.test(spiker_details)){
-            spiker_details = spiker_details.replace(/\n/g, '<br>');
-        }
+        let spiker_details = spiker_item[5] || "";
+        spiker_details = (spiker_details.length>0)?spiker_details.replace(/$/gm,'<br>'):spiker_details;
 
         let spiker_category = spiker_item[6]||"";
 
@@ -53,7 +40,7 @@ function spikers_draw(list_to_draw){
             <p class="spikers_list_item_info_title" onclick="showHidden(${serial_number})">${spiker_name}</p>
             ${(spiker_direction.length>0)?`<span class="yellow_stroke">${spiker_direction}</span>`:""}
             ${(spiker_start.length>0)?`<p>⏳ <u>${spiker_performance_day+"</u>"} ${spiker_start}-${spiker_end}</p>`:""}
-            ${(spiker_subject.length>0)?`<div onclick="showHidden(${serial_number})">📋 ${spiker_subject}</div>`:""}
+            ${(spiker_subject.length>0)?`<p onclick="showHidden(${serial_number})">📋 ${spiker_subject}</p>`:""}
         </div>
         `;
         spikers_list.appendChild(new_spikers_list_item);
@@ -69,8 +56,8 @@ function spikers_draw(list_to_draw){
         <div class="spikers_hidden_list_item_info">
             <h2>${spiker_name} ${(spiker_direction.length>0)?`<span class="yellow_stroke">${spiker_direction}</span>`:""}</h2>
             ${(spiker_start.length>0)?`<p><span class="yellow_stroke">Час виступу</span> ${spiker_start}-${spiker_end}</p>`:""}
-            ${(spiker_subject.length>0)?`<div><span class="yellow_stroke">Тема:</span> ${spiker_subject}</div>`:""}
-            ${(spiker_details.length>0)?`<div><span class="yellow_stroke">Детальніше:</span> ${spiker_details}</div>`:""}
+            ${(spiker_subject.length>0)?`<p><span class="yellow_stroke">Тема:</span> ${spiker_subject}</p>`:""}
+            ${(spiker_details.length>0)?`<p><span class="yellow_stroke">Детальніше:</span> ${spiker_details}</p>`:""}
             ${(spiker_category.length>0)?`<p> ${spiker_category}</p>`:""}
             
         </div>
