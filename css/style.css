@@ -44,8 +44,6 @@ body{
 .spikers_list_item_info_title{
   margin-top: 14px;
   margin-bottom: 14px;
-
-  font-size: 16px;
   white-space: pre-line;
 }
 .spikers_hidden{
@@ -106,7 +104,6 @@ body{
   padding-bottom: 40px;
 }
 .spikers_hidden_list_item_info h2{
-  font-size: 18px;
   white-space: pre-line;
 }
 
@@ -184,6 +181,10 @@ body{
   margin-left: 15px;
 }
 
-b{
+h2 b{
+  font-weight: bold;
+}
+
+.spikers_list_item_info_title b{
   font-weight: 700;
 }
