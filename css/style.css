@@ -107,7 +107,13 @@ body{
 .spikers_hidden_list_item_info h2{
   font-weight: bold;
   font-size: 18px;
+  white-space: pre-line;
 }
+
+.spikers_hidden_list_item_info p{
+  white-space: pre-line;
+}
+
 .btn{
   background: linear-gradient(135deg, #ed6200, #ff9447);
   border: 0;
